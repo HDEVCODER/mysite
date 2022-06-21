@@ -100,21 +100,21 @@ class Controller extends BaseController
             $img->stream();
 
 
-            // if(isset($options['compress']) && $options['compress']!="-1"){
-            //     $quality=100;
+            if(isset($options['compress']) && $options['compress']!="-1"){
+                $quality=100;
 
-            //     if($image2->width()>=3000)
-            //         $quality=30;
-            //     else if ($image2->width()<3000 && $image2->width()>=2000)
-            //         $quality=80;
-            //     else if ($image2->width()<2000 && $image2->width()>=1000)
-            //         $quality=90;
+                if($image2->width()>=3000)
+                    $quality=30;
+                else if ($image2->width()<3000 && $image2->width()>=2000)
+                    $quality=80;
+                else if ($image2->width()<2000 && $image2->width()>=1000)
+                    $quality=90;
 
-            //     $imagick = new Imagick();
-            //     $imagick->readImageBlob($img);
-            //     $imagick->setImageCompressionQuality($quality);
-            //     $img = $imagick->getImageBlob();
-            // }
+                $imagick = new Imagick();
+                $imagick->readImageBlob($img);
+                $imagick->setImageCompressionQuality($quality);
+                $img = $imagick->getImageBlob();
+            }
             try{
                 \Storage::disk($options["file_system_type"])->put($path_small . $filename, $sm_img, $filename);
             }catch(\Exception $e){}
